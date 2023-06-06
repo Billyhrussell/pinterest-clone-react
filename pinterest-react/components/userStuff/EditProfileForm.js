@@ -1,7 +1,7 @@
-import JoblyApi from "./_api";
+// import JoblyApi from "./_api";
 import userContext from "./userContext";
 import { useState, useContext } from 'react';
-import './ProfileForm.css';
+// import './ProfileForm.css';
 
 /** Form for updating a user info.
  *
@@ -23,15 +23,15 @@ function ProfileForm() {
 
   const [updateSuccessful, setUpdateSuccessful] = useState(false);
 
-  async function updateProfile(formData) {
-    const { username, firstName, lastName, email } = formData;
-    try {
-      const updatedUser = await JoblyApi.updateUserInfo(username, firstName, lastName, email, profilePicture, about, website);
-      setCurrentUser(updatedUser);
-    } catch (err) {
-      console.error("ERROR: ", err);
-    }
-  }
+  // async function updateProfile(formData) {
+  //   const { username, firstName, lastName, email } = formData;
+  //   try {
+  //     const updatedUser = await PinterestApi.updateUserInfo(username, firstName, lastName, email, profilePicture, about, website);
+  //     setCurrentUser(updatedUser);
+  //   } catch (err) {
+  //     console.error("ERROR: ", err);
+  //   }
+  // }
 
   /** Update form input. */
   function handleChange(evt) {
@@ -156,4 +156,5 @@ function ProfileForm() {
   );
 }
 
+// FIXME: named correctly?
 export default ProfileForm;

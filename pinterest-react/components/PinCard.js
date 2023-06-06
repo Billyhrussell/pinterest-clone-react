@@ -32,3 +32,5 @@ function PinCard(pin){
     </div>
   )
 }
+
+export default PinCard;

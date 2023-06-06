@@ -10,3 +10,5 @@ function PinDetails(){
     </div>
   )
 }
+
+export default PinDetails;

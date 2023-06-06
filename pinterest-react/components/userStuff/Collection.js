@@ -4,7 +4,6 @@
 function Collection(c){
 
 
-
   return(
     <section id="pinList">
       <h3>{c.title}</h3>
@@ -14,3 +13,5 @@ function Collection(c){
     </section>
   )
 }
+
+export default Collection;

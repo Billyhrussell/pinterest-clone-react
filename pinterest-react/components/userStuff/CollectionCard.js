@@ -15,3 +15,5 @@ function CollectionCard({title, description}){
     </div>
   )
 }
+
+export default CollectionCard;

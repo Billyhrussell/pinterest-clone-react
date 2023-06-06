@@ -1,7 +1,11 @@
+"use client"
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation"
+
 // import "./SignUpForm.css"
-import userContext from "./userContext";
+import userContext from "../../components/userContext";
+
 
 /** Form for adding.
  *
@@ -14,11 +18,15 @@ import userContext from "./userContext";
  * RoutesList -> SignUpForm
  */
 
+// FIXME: change curr user once have avail
 function SignUpForm({ register }) {
-  const { currentUser } = useContext(userContext);
+  // const { currentUser } = useContext(userContext);
+  let currentUser = false
   const initial =
     { username: "", password: "", firstName: "", lastName: "", email: "" };
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const router = useRouter();
+
   const [formData, setFormData] = useState(initial);
   const [isBadLogin, setIsBadLogin] = useState(true);
 
@@ -36,7 +44,8 @@ function SignUpForm({ register }) {
     evt.preventDefault();
     register(formData);
     setFormData(initial);
-    if(currentUser) navigate("/");
+    // if(currentUser) navigate("/");
+    if(currentUser) router.push("/")
     if(!currentUser) setIsBadLogin(false);
   }
 

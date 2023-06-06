@@ -1,15 +1,20 @@
+"use client"
 import { Routes, Route, Navigate } from 'react-router-dom';
-import userContext from './userContext';
+import userContext from '../components/userContext';
 import React, { useContext } from "react";
 
-import Homepage from "./Homepage";
-import CompanyList from "./CompanyList";
-import CompanyDetails from "./CompanyDetails";
-import JobList from "./JobList";
-import ProfileForm from './ProfileForm';
-import SignUp from './SignUpForm';
-import Login from './LoginForm';
+import { useRouter } from 'next/navigation';
 
+// import Homepage from "./Homepage";
+// import CompanyList from "./CompanyList";
+// import CompanyDetails from "./CompanyDetails";
+// import JobList from "./JobList";
+// import ProfileForm from './ProfileForm';
+import Profile from '../components/userStuff/Profile'
+import SignUp from './signup/page';
+import Login from './login/page';
+import Collection from '../components/userStuff/Collection'
+import Home from './page'
 /** Function  creates paths to different pages
  *
  * Props:
@@ -23,52 +28,92 @@ import Login from './LoginForm';
 */
 
 function RouteList({ login, signup }) {
-  const { currentUser } = useContext(userContext);
+  // const { currentUser } = useContext(userContext);
+  let currentUser = false;
+  const router = useRouter();
+
+
 
   return (
-    <Routes>
+    <>
 
 
       {currentUser &&
         <>
         {/* TODO: make sure this routes to user profile */}
-          <Route
-            path="/:username"
-            element={<Profile />}
-          />
 
-          <Route
-            path="/:username/:title"
-            element={<Collection />}
-          />
+
+        router.push({"/:username"});
+
+        {/* router.query.username */}
+        router.push({"/:username/:title"})
+
 
         </>}
 
-        <Route
-        path="/"
-        element={<Page />}
-      />
+       router.push("/login")
 
       {!currentUser &&
         <>
-          <Route
-            path="/login"
-            element={<Login login={login} />}
-          />
 
-          <Route
-            path="/signup"
-            element={<SignUp register={signup} />}
-          />
+          router.push({"/login"})
+          router.push({"/signup"})
+
         </>
       }
 
       {/* FIXME: navigates to / when on companies twice */}
-      <Route path="*" element={<Navigate to="/" />} />
+      {/* <Route path="*" element={<Navigate to="/" />} /> */}
 
-    </Routes>
+      </>
+
   );
 }
 
 export default RouteList;
 
+
+
+// FIXME: OLD WAY:
+// return (
+//   <Routes>
+
+
+//     {currentUser &&
+//       <>
+//       {/* TODO: make sure this routes to user profile */}
+//         <Route
+//           path="/:username"
+//           element={<Profile />}
+//         />
+
+//         <Route
+//           path="/:username/:title"
+//           element={<Collection />}
+//         />
+
+//       </>}
+
+//       <Route
+//       path="/"
+//       element={<Home />}
+//       />
+
+//     {!currentUser &&
+//       <>
+//         <Route
+//           path="/login"
+//           element={<Login login={login} />}
+//         />
+
+//         <Route
+//           path="/signup"
+//           element={<SignUp register={signup} />}
+//         />
+//       </>
+//     }
+
+//     {/* FIXME: navigates to / when on companies twice */}
+//     <Route path="*" element={<Navigate to="/" />} />
+
+//   </Routes>

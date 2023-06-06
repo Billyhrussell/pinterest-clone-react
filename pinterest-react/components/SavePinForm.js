@@ -3,7 +3,7 @@
 // ?: global variables, forgot how to use. Collections will be used almost
 // everywhere in website, save button
 // might be over complicating w/form. Need to save collection w/pin
-// inside of singular pin, handle fn? 
+// inside of singular pin, handle fn?
 // TODO: handleSubmit
 function savePinForm(){
 
@@ -46,3 +46,5 @@ function savePinForm(){
     </div>
   )
 }
+
+export default savePinForm;

@@ -13,3 +13,5 @@ function PinList(){
     </section>
   )
 }
+
+export default PinList;

@@ -2,6 +2,7 @@
 // if click on profile, show curr user
 // if click on person's pfp, show persons profile
 
+// NOTE: THIS HAS BEEN MOVED TO app/[username]/page.js
 const { Button } = require("reactstrap");
 
 // ??? what is stored in currentUser again?
@@ -35,5 +36,6 @@ function Profile(user=currentUser){
     </section>
   )
 
-
 }
+
+export default Profile;
