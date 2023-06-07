@@ -90,7 +90,7 @@ function App() {
   //   }
   // }
 
-  // FIXME: checking whether or not query route works 
+  // FIXME: checking whether or not query route works (it works )
   return (
     // <userContext.Provider value={{ currentUser, setCurrentUser }}>
       <div className="App">
