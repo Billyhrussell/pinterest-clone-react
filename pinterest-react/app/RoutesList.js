@@ -45,7 +45,7 @@ function RouteList({ login, signup }) {
 
         router.push({"/:username"});
 
-        {/* router.query.username */}
+        {/* router.query.username THIS IS FOR COLLECTION */}
         router.push({"/:username/:title"})
 
 

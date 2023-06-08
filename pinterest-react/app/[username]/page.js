@@ -9,7 +9,7 @@ import PinList from "../../components/PinList"
 // if click on person's pfp, show persons profile
 
 const { Button } = require("reactstrap");
-
+let INITIAL_COLLECTION = [{ "username": "billy", "title" : "c_title_test", "description" : "C_descrip_test" }];
 // ??? what is stored in currentUser again?
 
 let currentUser = {}
@@ -23,6 +23,7 @@ function Profile(){
   return(
   <section id="profile">
     <div>
+      <h3>INSIDE PROFILE PAGE</h3>
       <img src={user.picture} class="img-fluid" alt="Responsive image"/>
       { user.username == currentUser.username ?
         <button>
@@ -37,7 +38,7 @@ function Profile(){
       {/* this should be: collectionList and pinList  */}
       {
         saved ?
-        <CollectionList setSaved={setSaved}/> :
+        <CollectionList collections={INITIAL_COLLECTION} setSaved={setSaved}/> :
         <PinList setSaved={setSaved}/>
       }
 

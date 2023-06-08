@@ -89,12 +89,12 @@ function App() {
   //     console.error("ERROR: ", err);
   //   }
   // }
-
+  let username = "billy"
   // FIXME: checking whether or not query route works (it works )
   return (
     // <userContext.Provider value={{ currentUser, setCurrentUser }}>
       <div className="App">
-            <button type="button" onClick={() => router.push('/:username')}>
+            <button type="button" onClick={() => router.push(`/${username}`)}>
       Click me
     </button>
       </div>
