@@ -12,3 +12,6 @@ function PinDetails(){
 }
 
 export default PinDetails;
+
+
+
