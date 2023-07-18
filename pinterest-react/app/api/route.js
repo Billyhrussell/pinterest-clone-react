@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5001";
 
 /** API Class.
  *
@@ -11,7 +11,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
  */
 
 class PinterestApi {
-  static token = "";
+  static token = null;
 
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
@@ -41,9 +41,17 @@ class PinterestApi {
     return res.token;
   }
 
+  /** Get User Info */
+  static async getUserInfo(id) {
+    let res = await this.request("user-info",
+      { id },
+      "post");
+    return res.user;
+  }
+
   /** Login a user */
   static async login(username, password) {
-    let res = await this.request("auth/token", { username, password }, "post");
+    let res = await this.request("login", { username, password }, "post");
     return res.token;
   }
 
@@ -74,6 +82,6 @@ class PinterestApi {
     return res.pins;
   }
 
-
-
 }
+
+export default PinterestApi;

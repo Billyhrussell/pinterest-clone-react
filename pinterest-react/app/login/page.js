@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/navigation"
 
 // import "./LoginForm.css";
-import userContext from "../../components/userContext";
+// import userContext from "../../components/userContext";
+import userContext from "../../components/userContext"
+console.log("USERCONTEXT", userContext)
 
 /** Form for logging in.
  *
@@ -19,10 +21,12 @@ import userContext from "../../components/userContext";
 
 // FIXME: change curr user once have avail
 function LoginForm({ login }) {
-  // const { currentUser } = useContext(userContext);
-  let currentUser = false;
+
+  console.log(login, "lOGIN")
+  const { currentUser } = useContext(userContext);
+  // let currentUser = false;
   const initial = { username: "", password: "" };
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const router = useRouter();
   const [formData, setFormData] = useState(initial);
   const [isBadLogin, setIsBadLogin] = useState(true);
@@ -41,9 +45,10 @@ function LoginForm({ login }) {
     evt.preventDefault();
     await login(formData);
     setFormData(initial);
-    console.log("CURR USER:", currentUser);
-    // if (currentUser) navigate("/");
-    if(currentUser) router.push("/");
+    console.log("CURR USER in handlesubmit:", currentUser);
+    // FIXME: there is no "/", so there is an error 
+    if (currentUser) navigate("/");
+    // if(currentUser) router.push("/");
     if (!currentUser) setIsBadLogin(false);
   }
 

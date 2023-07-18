@@ -1,9 +1,10 @@
 "use client"
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import userContext from '../components/userContext';
 import React, { useContext } from "react";
 
 import { useRouter } from 'next/navigation';
+
 
 // import Homepage from "./Homepage";
 // import CompanyList from "./CompanyList";
@@ -30,6 +31,7 @@ import Home from './page'
 function RouteList({ login, signup }) {
   // const { currentUser } = useContext(userContext);
   let currentUser = false;
+  const navigate = useNavigate();
   const router = useRouter();
 
 
@@ -40,9 +42,13 @@ function RouteList({ login, signup }) {
 
       {currentUser &&
         <>
-        {/* TODO: make sure this routes to user profile */}
+        {/* TODO: change router.push to <Routes><Route> */}
 
-
+        <Routes>
+          <Route path="/:username"
+          element={<Profile />}>
+          </Route>
+        </Routes>
         router.push({"/:username"});
 
         {/* router.query.username THIS IS FOR COLLECTION */}
@@ -51,14 +57,19 @@ function RouteList({ login, signup }) {
 
         </>}
 
-       router.push("/login")
 
       {!currentUser &&
         <>
-
-          router.push({"/login"})
-          router.push({"/signup"})
-
+        <Routes>
+          <Route
+            path="/login"
+            element={<Login login={login} />}
+          />
+          <Route
+            path="/signup"
+            element={<SignUp signup={signup} />}
+          />
+          </Routes>
         </>
       }
 

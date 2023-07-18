@@ -1,4 +1,4 @@
-// import "./Navigation.css";
+import "./Navigation.css";
 import React, { useState, useContext } from 'react';
 import {
   Collapse,
@@ -27,6 +27,7 @@ import userContext from './userContext';
 
 function Navigation({ logout }) {
   const { currentUser } = useContext(userContext);
+  console.log("CURRENT USER IN NAVIGATION: ", currentUser)
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
@@ -34,7 +35,7 @@ function Navigation({ logout }) {
     return (
       <>
         <NavItem>
-          <NavLink to="/home"
+          <NavLink to="/"
             activeclassname="active"
             tag={RRNavLink}>Home</NavLink>
         </NavItem>
@@ -73,7 +74,7 @@ function Navigation({ logout }) {
   return (
     <div>
       <Navbar color="white" light expand="md">
-        <NavbarBrand href="/" style={{ color: "blue" }}>Jobly</NavbarBrand>
+        <NavbarBrand href="/" style={{ color: "red" }}>Pinterest</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ms-auto" navbar>
