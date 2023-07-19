@@ -8,6 +8,8 @@ import Loading from "../../../../components/Loading";
 import PinterestApi from "@/app/api/route";
 import PinList from "@/components/PinList";
 
+// CollectionList -> CollectionCard -> [username][title][id] -> pinList -> pinCard -> pin[id]
+
 function Collection({  params}){
 
   console.log(params)
@@ -16,10 +18,8 @@ function Collection({  params}){
 
   useEffect(function getPinsInCollectionOnMount(){
     async function getPins(id){
-      console.log("INGET PINS")
         try{
           const pData = await PinterestApi.getPinsInCollection(username, title, id)
-          console.log("PINDATAA ", pData)
           setPins(pData)
         } catch(err){
           console.error("Error fetching user info", err)
@@ -32,7 +32,7 @@ function Collection({  params}){
 
   return(
     <section id="pinList">
-      <h1>COLLECTION PAGE</h1>
+      <h1>Collection page, showing pins in collection</h1>
       <h3>{username}</h3>
       <h3>{title}</h3>
 

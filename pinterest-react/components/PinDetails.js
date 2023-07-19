@@ -1,6 +1,6 @@
 // Show a singular pin's details
 
-function PinDetails(){
+function PinDetails({pin}){
 
   return (
     <div className="PinDetails">

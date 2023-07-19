@@ -1,23 +1,16 @@
 "use client"
 import React, { useState, useEffect, useContext } from "react";
 import CollectionList from "../../components/userStuff/CollectionList"
-import PinList from "../../components/PinList"
 import PinterestApi from "../api/route";
 import userContext from '../../components/userContext'
 import Loading from "../../components/Loading";
 import {usePathname, useSearchParams } from 'next/navigation'
 
-// THIS FILE SHOWS THE USER PROFILE
+// profile -> CollectionList -> CollectionCard -> [username][title][id] ->  pinList -> pinCard -> pin[id]
 
-// profile -> collections -> pins in collection -> pin
 // if click on profile, show curr user
 // if click on person's pfp, show persons profile
 
-const { Button } = require("reactstrap");
-
-
-
-let currentUser = {}
 
 function Profile(){
 

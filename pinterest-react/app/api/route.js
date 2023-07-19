@@ -79,8 +79,8 @@ class PinterestApi {
 
   // get one pin
   static async getAPin(id){
-    let res = await this.request(`/pin/${id}`);
-    return res.pins;
+    let res = await this.request(`pin/${id}`);
+    return res;
   }
 
   // get pins created by a user
@@ -133,8 +133,7 @@ class PinterestApi {
 
   // get pins in collection
   static async getPinsInCollection(username, title, id){
-    let data = {id}
-    let res = await this.request(`/${username}/${title}/${id}`)
+    let res = await this.request(`${username}/${title}/${id}`)
     return res.pins
   }
 }

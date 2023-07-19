@@ -1,9 +1,14 @@
+"use client"
 import SavePinForm from "./SavePinForm"
 import Link  from "next/link";
+import PinDetails from "./PinDetails";
 // SHOWS GENERAL INFO for a pin
 
 // TODO: how to store the collection_title when clicking save?
 // user collections will be used everywhere, make global?
+
+// CollectionList -> CollectionCard -> [username][title][id] -> pinList -> pinCard -> pin[id]
+
 
 function PinCard( { pin }){
 

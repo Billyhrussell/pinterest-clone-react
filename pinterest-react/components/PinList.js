@@ -6,11 +6,12 @@ let INITIAL_PINS = [{ "id": 1, "description" : "pin1test", "title" : "pin1test"}
 { "id": 3, "description" : "pin3test", "title" : "pin3test"},
 { "id": 4, "description" : "pin4test", "title" : "pin4test"} ]
 
+// CollectionList -> CollectionCard -> [username][title][id] -> pinList -> pinCard -> pin[id]
+
 function PinList({ pins }){
   console.log("pins", pins)
   return (
     <section id="pinList">
-      <p>hi</p>
       <div>
         {
           pins.map(pin =>

@@ -44,6 +44,9 @@ function RouteList({ login, signup }) {
 
       <Route path=":username" element={<Profile/>}/>
 
+      <Route path=":username/:title/:id" element={<Collection/>}/>
+
+
       {currentUser &&
       <>
 
