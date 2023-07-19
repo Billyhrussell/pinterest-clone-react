@@ -6,12 +6,13 @@ import React, { useContext } from "react";
 import { useRouter } from 'next/navigation';
 
 
-// import Homepage from "./Homepage";
+import Homepage from "./index";
 // import CompanyList from "./CompanyList";
 // import CompanyDetails from "./CompanyDetails";
 // import JobList from "./JobList";
 // import ProfileForm from './ProfileForm';
-import Profile from '../components/userStuff/Profile'
+import Profile from './[username]/page'
+// import Profile from './profile/page'
 import SignUp from './signup/page';
 import Login from './login/page';
 import Collection from '../components/userStuff/Collection'
@@ -37,30 +38,21 @@ function RouteList({ login, signup }) {
 
 
   return (
-    <>
 
+    <Routes>
+      <Route path="" element={<Homepage/>}/>
+
+      <Route path=":username" element={<Profile/>}/>
 
       {currentUser &&
-        <>
-        {/* TODO: change router.push to <Routes><Route> */}
+      <>
 
-        <Routes>
-          <Route path="/:username"
-          element={<Profile />}>
-          </Route>
-        </Routes>
-        router.push({"/:username"});
+      </>
 
-        {/* router.query.username THIS IS FOR COLLECTION */}
-        router.push({"/:username/:title"})
-
-
-        </>}
-
+      }
 
       {!currentUser &&
         <>
-        <Routes>
           <Route
             path="/login"
             element={<Login login={login} />}
@@ -69,14 +61,12 @@ function RouteList({ login, signup }) {
             path="/signup"
             element={<SignUp signup={signup} />}
           />
-          </Routes>
         </>
       }
 
-      {/* FIXME: navigates to / when on companies twice */}
-      {/* <Route path="*" element={<Navigate to="/" />} /> */}
+        {/* <Route path="*" element={<Navigate to="/" />} /> */}
 
-      </>
+      </Routes>
 
   );
 }

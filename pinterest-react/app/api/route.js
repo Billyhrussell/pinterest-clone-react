@@ -12,7 +12,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5001";
 
 class PinterestApi {
   static token = null;
-
+  // FIXME: the token does not save?
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
 
@@ -41,11 +41,18 @@ class PinterestApi {
     return res.token;
   }
 
-  /** Get User Info */
+  /** Get User Info by Id*/
+  // FIXME: this should be get, but idk
   static async getUserInfo(id) {
-    let res = await this.request("user-info",
+    let res = await this.request("/user-info",
       { id },
       "post");
+    return res.user;
+  }
+
+  // Get User Info by Username
+  static async getUserProfile(username) {
+    let res = await this.request(`${username}`);
     return res.user;
   }
 
@@ -66,22 +73,70 @@ class PinterestApi {
   // ________________________________________________________________________
   // all pins that exist
   static async getAllPins(){
-    let res = await this.request(``);
+    let res = await this.request(`/pin`);
     return res.pins;
   }
 
-   //get COLLECTIONS then get pins
-  static async getUserPins(user){
-    let res = await this.request(``);
+  // get one pin
+  static async getAPin(id){
+    let res = await this.request(`/pin/${id}`);
     return res.pins;
   }
 
-  // all pins that user has created
-  static async getUserCreatedPins(user){
-    let res = await this.request(``);
+  // get pins created by a user
+  static async getUserPins(username){
+    let res = await this.request(`/${username}/created`);
     return res.pins;
   }
 
+  // create pin
+  static async createPin(title, description, picture, link_to_original_pic){
+    let res = await this.request(`/pin/create`,
+    { title, description, picture, link_to_original_pic },
+    "post")
+    return res.pin
+  }
+
+  // delete pin
+  static async deletePin(id){
+    let res = await this.request(`/delete-pin`,
+    { id },
+    "post")
+    return res.pin
+  }
+
+  // Collections ____________________________________________________________________
+  // a users collections
+  static async getUserCollections(username){
+    let res = await this.request(`/${username}/saved`);
+    return res.collections;
+  }
+
+  // create a collection
+  static async createCollection(title, description){
+    let res = await this.request(`/createBoard`,
+    { title, description },
+    "post")
+    return res.collection
+  }
+
+  // delete a collection
+  static async deleteCollection(id){
+    let res = await this.request(`/deleteBoard`,
+    { id },
+    "post")
+    return res.collection
+  }
+
+
+  // Collections and Pins ____________________________________________________________________
+
+  // get pins in collection
+  static async getPinsInCollection(username, title, id){
+    let data = {id}
+    let res = await this.request(`/${username}/${title}/${id}`)
+    return res.pins
+  }
 }
 
 export default PinterestApi;

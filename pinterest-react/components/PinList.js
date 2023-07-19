@@ -6,8 +6,8 @@ let INITIAL_PINS = [{ "id": 1, "description" : "pin1test", "title" : "pin1test"}
 { "id": 3, "description" : "pin3test", "title" : "pin3test"},
 { "id": 4, "description" : "pin4test", "title" : "pin4test"} ]
 
-function PinList({pins = INITIAL_PINS}){
-
+function PinList({ pins }){
+  console.log("pins", pins)
   return (
     <section id="pinList">
       <p>hi</p>

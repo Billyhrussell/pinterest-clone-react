@@ -9,8 +9,8 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-import { NavLink as RRNavLink } from 'react-router-dom';
-
+import { Link, NavLink as RRNavLink, Router } from 'react-router-dom';
+import Homepage from "../app/index";
 import userContext from './userContext';
 
 /** Displays Navigation bar with links to homepage, company list, and job list
@@ -30,26 +30,46 @@ function Navigation({ logout }) {
   console.log("CURRENT USER IN NAVIGATION: ", currentUser)
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-
+  // let username = currentUser.username
   function loggedIn() {
     return (
       <>
-        <NavItem>
+        {/* <NavItem>
           <NavLink to="/"
             activeclassname="active"
             tag={RRNavLink}>Home</NavLink>
+        </NavItem> */}
+
+        <NavItem>
+          <NavLink to="" activeclassname="active" tag={RRNavLink}>
+          Home
+          </NavLink>
         </NavItem>
+
         <NavItem>
           <NavLink to={`/${currentUser.username}`}
             activeclassname="active"
             tag={RRNavLink}>Profile</NavLink>
         </NavItem>
+
+
         <NavItem>
           <button
             className="nav-link"
             onClick={logout}>Log out, {currentUser.firstName}
           </button>
         </NavItem>
+
+         {/* <NavItem>
+          <Link pathname={`/user/${currentUser.username}`}> PROFILE</Link>
+        </NavItem> */}
+
+        {/* <Link href={{
+          pathname: '/user/[username]',
+          query: {username: `${currentUser.username}`}
+        }}>
+        PROFILEEEE
+        </Link> */}
       </>
     );
   }
@@ -60,12 +80,12 @@ function Navigation({ logout }) {
         <NavItem>
           <NavLink to="/login"
             activeclassname="active"
-            tag={RRNavLink}>Login</NavLink>
+            tag={RRNavLink}>Login in Nav</NavLink>
         </NavItem>
         <NavItem>
           <NavLink to="/signup"
             activeclassname="active"
-            tag={RRNavLink}>Sign Up</NavLink>
+            tag={RRNavLink}>Sign Up in Nav</NavLink>
         </NavItem>
       </>
     );

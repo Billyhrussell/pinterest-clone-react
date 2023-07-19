@@ -1,7 +1,12 @@
 "use client"
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CollectionList from "../../components/userStuff/CollectionList"
 import PinList from "../../components/PinList"
+import PinterestApi from "../api/route";
+import userContext from '../../components/userContext'
+import Loading from "../../components/Loading";
+import {usePathname, useSearchParams } from 'next/navigation'
+
 // THIS FILE SHOWS THE USER PROFILE
 
 // profile -> collections -> pins in collection -> pin
@@ -9,23 +14,76 @@ import PinList from "../../components/PinList"
 // if click on person's pfp, show persons profile
 
 const { Button } = require("reactstrap");
-let INITIAL_COLLECTION = [{ "username": "billy", "title" : "c_title_test", "description" : "C_descrip_test" }];
-// ??? what is stored in currentUser again?
+
+
 
 let currentUser = {}
-// function Profile(user=currentUser){
-function Profile(){
-  const [saved, setSaved] = useState(true)
-  let user = {"username": "billy"}
 
-  console.log("hello")
+function Profile(){
+
+  const [saved, setSaved] = useState(true)
+  const { currentUser } = useContext(userContext);
+  const [profileData, setProfileData] = useState(currentUser)
+  const [collectionData, setCollectionData] = useState(null)
+  const [pinData, setPinData] = useState(null)
+
+
+  console.log("PToken", PinterestApi.token)
+
+  // FIXME: THIS SOMETIMES WORKS?
+  const path = usePathname()
+  // const username = path.slice(1)
+  const username = "fretcow"
+
+  useEffect(function getProfileOnMount(){
+    console.log("inuseeffect")
+
+    async function getUserProfile(username){
+
+        try{
+          const pData = await PinterestApi.getUserProfile(username)
+          console.log("PROFILE DATAA ", pData)
+          setProfileData(pData)
+        } catch(err){
+          console.error("Error fetching user info", err)
+        }
+      }
+
+    async function getCollectionData(username){
+      try{
+        const c = await PinterestApi.getUserCollections(username)
+        setCollectionData(c)
+        console.log("COOLETIONSS" , c)
+      }catch(err){
+        console.error("Error getting collections:", err)
+      }
+    }
+
+    // async function getPinData(username){
+    //   try{
+    //     const p = await PinterestApi.getUserPins(username)
+    //     setPinData(p)
+    //     console.log("PINZZ ", p)
+    //   }catch(err){
+    //     console.error("Error getting pins:", err)
+    //   }
+    // }
+      getUserProfile(username);
+      getCollectionData(username);
+      // getPinData(username);
+
+  }, []);
+
+
+  if (!profileData) return <Loading/>
+  if (!collectionData) return <Loading/>
 
   return(
   <section id="profile">
     <div>
-      <h3>INSIDE PROFILE PAGE</h3>
-      <img src={user.picture} class="img-fluid" alt="Responsive image"/>
-      { user.username == currentUser.username ?
+      <h3>PROFILE PAGE OF {profileData.first_name}</h3>
+
+      { profileData.username == currentUser.username ?
         <button>
           Edit Profile
         </button> :
@@ -37,9 +95,10 @@ function Profile(){
       {/* TODO: HOW TO NAV B/T SAVED AND CREATED */}
       {/* this should be: collectionList and pinList  */}
       {
-        saved ?
-        <CollectionList collections={INITIAL_COLLECTION} setSaved={setSaved}/> :
-        <PinList setSaved={setSaved}/>
+        // saved ?
+        // <CollectionList collections={collectionData} setSaved={setSaved}/> :
+        // <PinList pins={pinData} setSaved={setSaved}/>
+        <CollectionList collections={collectionData} setSaved={setSaved} username={username}/>
       }
 
 
@@ -47,20 +106,7 @@ function Profile(){
 
   </section>
 )
+    }
 
-}
 
 export default Profile;
-
-
-// return(
-//   <section id="profile">
-//     <p>
-//     hi
-
-//     </p>
-
-
-
-//   </section>
-// )

@@ -36,9 +36,6 @@ function App() {
   const [token, setToken] = useState(localStorage.getItem(GLOBAL_TOKEN) || null);
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  // let currentUser = false;
-  let router = useRouter();
-  // console.log("current user: ", currentUser);
 
   useEffect(function getCurrentUser() {
 
@@ -66,6 +63,7 @@ function App() {
 
   if(isLoading) return (<Loading />);
 
+  /** Handles login. */
   async function login({ username, password }) {
     try {
       let tokenData = await PinterestApi.login(username, password);
@@ -76,13 +74,7 @@ function App() {
     }
   }
 
-  function logout() {
-    setCurrentUser(null);
-    setToken(null);
-    PinterestApi.token = null;
-    localStorage.removeItem(GLOBAL_TOKEN);
-  }
-
+  /** Handles Signup */
   async function signup({ username, password, firstName, lastName, email }) {
     try {
       let tokenData = await PinterestApi.createNewUser(username, password, firstName, lastName, email);
@@ -92,8 +84,22 @@ function App() {
       console.error("ERROR in signup: ", err);
     }
   }
-  let username = "billy"
-  // FIXME: checking whether or not query route works (it works )
+
+  /** Handles site-wide logout */
+  function logout() {
+    setCurrentUser(null);
+    setToken(null);
+    PinterestApi.token = null;
+    localStorage.removeItem(GLOBAL_TOKEN);
+  }
+
+  /** Handles updating token outside of app.js */
+  async function updateToken(tokenData){
+    setToken(tokenData)
+    localStorage.setItem(GLOBAL_TOKEN, tokenData)
+
+  }
+
   return (
     <userContext.Provider value={{ currentUser, setCurrentUser }}>
       <div className="App">

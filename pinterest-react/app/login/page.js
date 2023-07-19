@@ -22,6 +22,7 @@ console.log("USERCONTEXT", userContext)
 // FIXME: change curr user once have avail
 function LoginForm({ login }) {
 
+
   console.log(login, "lOGIN")
   const { currentUser } = useContext(userContext);
   // let currentUser = false;
@@ -46,7 +47,7 @@ function LoginForm({ login }) {
     await login(formData);
     setFormData(initial);
     console.log("CURR USER in handlesubmit:", currentUser);
-    // FIXME: there is no "/", so there is an error 
+    // FIXME: there is no "/", so there is an error
     if (currentUser) navigate("/");
     // if(currentUser) router.push("/");
     if (!currentUser) setIsBadLogin(false);

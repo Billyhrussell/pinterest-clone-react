@@ -4,9 +4,9 @@ import { useRouter } from "next/router"
 // TODO: ? get first picture inside of collection
 // number of pins inside collection
 
-function CollectionCard({ collection }){
-  let username = "billy"
-  // let { title, description } = collection
+function CollectionCard({ username, collection }){
+  // let username = "fretcow"
+
   // const router = useRouter();
 
 
@@ -15,7 +15,7 @@ function CollectionCard({ collection }){
   return(
     <div class="collectionCard">
 
-      <Link href={`/${collection.username}/${collection.title}`}>
+      <Link href={`/${username}/${collection.title}/${collection.id}`} state={collection.id}>
 
         {/* <img src="..." class="img-fluid" alt="Responsive image"></img> */}
         {collection.title}
