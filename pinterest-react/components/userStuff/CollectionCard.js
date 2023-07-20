@@ -9,14 +9,10 @@ import { useRouter } from "next/router"
 
 
 function CollectionCard({ username, collection }){
-  // let username = "fretcow"
 
-  // const router = useRouter();
-
-
-  console.log("INSIDE COLLECTION CARD")
 
   return(
+
     <div class="collectionCard">
 
       <Link href={`/${username}/${collection.title}/${collection.id}`}>

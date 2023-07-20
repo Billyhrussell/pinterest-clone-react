@@ -80,12 +80,12 @@ function Navigation({ logout }) {
         <NavItem>
           <NavLink to="/login"
             activeclassname="active"
-            tag={RRNavLink}>Login in Nav</NavLink>
+            tag={RRNavLink}>Login in</NavLink>
         </NavItem>
         <NavItem>
           <NavLink to="/signup"
             activeclassname="active"
-            tag={RRNavLink}>Sign Up in Nav</NavLink>
+            tag={RRNavLink}>Sign Up</NavLink>
         </NavItem>
       </>
     );
@@ -104,6 +104,8 @@ function Navigation({ logout }) {
         </Collapse>
       </Navbar>
     </div>
+
+
   );
 }
 

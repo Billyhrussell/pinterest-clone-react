@@ -1,5 +1,6 @@
 // shows a list of pins
 import PinCard from "./PinCard";
+import "@/css/PinList.css"
 
 let INITIAL_PINS = [{ "id": 1, "description" : "pin1test", "title" : "pin1test"},
 { "id": 2, "description" : "pin2test", "title" : "pin2test"},
@@ -11,7 +12,7 @@ let INITIAL_PINS = [{ "id": 1, "description" : "pin1test", "title" : "pin1test"}
 function PinList({ pins }){
   console.log("pins", pins)
   return (
-    <section id="pinList">
+    <section className="pin_container">
       <div>
         {
           pins.map(pin =>

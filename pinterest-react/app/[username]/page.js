@@ -4,12 +4,14 @@ import CollectionList from "../../components/userStuff/CollectionList"
 import PinterestApi from "../api/route";
 import userContext from '../../components/userContext'
 import Loading from "../../components/Loading";
-import {usePathname, useSearchParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 // profile -> CollectionList -> CollectionCard -> [username][title][id] ->  pinList -> pinCard -> pin[id]
 
 // if click on profile, show curr user
 // if click on person's pfp, show persons profile
+
+const { Button } = require("reactstrap");
 
 
 function Profile(){
@@ -77,12 +79,9 @@ function Profile(){
       <h3>PROFILE PAGE OF {profileData.first_name}</h3>
 
       { profileData.username == currentUser.username ?
-        <button>
-          Edit Profile
-        </button> :
-        <button>
-          Follow
-        </button>
+        <button className="btn btn-primary"> Edit Profile </button>
+         :
+        <button className="btn btn-primary"> Follow </button>
       }
 
       {/* TODO: HOW TO NAV B/T SAVED AND CREATED */}
@@ -91,7 +90,9 @@ function Profile(){
         // saved ?
         // <CollectionList collections={collectionData} setSaved={setSaved}/> :
         // <PinList pins={pinData} setSaved={setSaved}/>
-        <CollectionList collections={collectionData} setSaved={setSaved} username={username}/>
+        <div className="collectionList">
+          <CollectionList collections={collectionData} setSaved={setSaved} username={username}/>
+        </div>
       }
 
 

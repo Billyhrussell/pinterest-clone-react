@@ -12,7 +12,7 @@ import userContext from "../components/userContext";
 import Navigation from "../components/Navigation";
 import RoutesList from "../app/RoutesList"
 import Loading from "../components/Loading";
-
+import "../css/App.css"
 /**
  * App
  *
@@ -102,9 +102,11 @@ function App() {
 
   return (
     <userContext.Provider value={{ currentUser, setCurrentUser }}>
-      <div className="App">
+      <div className="App" style={{backgroundColor:`bisque`}}>
         <BrowserRouter>
+
           <Navigation logout={logout} />
+
           <div className="container">
             <RoutesList login={login} signup={signup} />
           </div>

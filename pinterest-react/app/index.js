@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import userContext from "../components/userContext";
-// import "./Homepage.css"
+import "../css/Homepage.css"
 
-/** Displays main homepage for Friender app
+/** Displays main homepage for Pinterest
  *
  * Props: none
  * State: none
@@ -16,15 +16,12 @@ function Homepage() {
 
   return (
     <div className="homepage">
-
-      <br />
-
       {currentUser &&
         <h2>Welcome Back, {currentUser.username}!</h2>}
       {!currentUser &&
         <div className="homepage-btn">
-          <a href="/login" className="btn btn-primary me-3">Log In Homepage</a>
-          <a href="/signup" className="btn btn-primary">Sign Up</a>
+          <a href="/login" className="btn btn-primary me-3">Log In </a>
+          <a href="/signup" className="btn btn-primary"> Sign Up</a>
         </div>}
     </div>
   );
