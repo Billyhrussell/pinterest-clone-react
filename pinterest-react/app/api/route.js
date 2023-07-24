@@ -13,19 +13,45 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5001";
 class PinterestApi {
   static token = null;
   // FIXME: the token does not save?
-  static async request(endpoint, data = {}, method = "get") {
-    console.debug("API Call:", endpoint, data, method);
+  // static async request(endpoint, data = {}, method = "get") {
+  //   console.debug("API Call:", endpoint, data, method);
+
+  //   const url = `${BASE_URL}/${endpoint}`;
+  //   const headers = { Authorization: `Bearer ${PinterestApi.token}` };
+  //   const params = (method === "get")
+  //     ? data
+  //     : {};
+
+  //   try {
+  //     return (await axios({ url, method, data, params, headers })).data;
+  //   } catch (err) {
+  //     console.error("API Error:", err.response);
+  //     let message = err.response.data.error.message;
+  //     throw Array.isArray(message) ? message : [message];
+  //   }
+  // }
+
+  static async request(endpoint, data = {}, method = 'get') {
+    console.debug('API Call:', endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`;
-    const headers = { Authorization: `Bearer ${PinterestApi.token}` };
-    const params = (method === "get")
-      ? data
-      : {};
+    const headers = {
+      'Content-Type': 'application/json', // Set the Content-Type header to JSON
+    };
 
     try {
-      return (await axios({ url, method, data, params, headers })).data;
+      const response = await axios({
+        method,
+        url,
+        data: method !== 'get' ? data : null,
+        params: method === 'get' ? data : null,
+        headers,
+        withCredentials: true, // Include credentials (cookies) with the request
+      });
+
+      return response.data;
     } catch (err) {
-      console.error("API Error:", err.response);
+      console.error('API Error:', err.response);
       let message = err.response.data.error.message;
       throw Array.isArray(message) ? message : [message];
     }
@@ -59,7 +85,7 @@ class PinterestApi {
   /** Login a user */
   static async login(username, password) {
     let res = await this.request("login", { username, password }, "post");
-    return res.token;
+    return res;
   }
 
   /**Update individual user information */

@@ -7,11 +7,14 @@ import { BrowserRouter } from "react-router-dom";
 import { useRouter } from 'next/navigation';
 
 import PinterestApi from "./api/route"
-import userContext from "../components/userContext";
 
-import Navigation from "../components/Navigation";
-import RoutesList from "../app/RoutesList"
+import userContext from "@/app/userContext";
+
+import Navigation from "./Navigation";
+
+import RoutesList from "./RoutesList"
 import Loading from "../components/Loading";
+
 import "../css/App.css"
 /**
  * App
@@ -33,42 +36,54 @@ const GLOBAL_TOKEN = "token";
 
 function App() {
 
-  const [token, setToken] = useState(localStorage.getItem(GLOBAL_TOKEN) || null);
+  // const [token, setToken] = useState(getCookie("id") || null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // NOTE: used http-only request instead, since we were having a problem with
+  // storing the token in localStorage (also better against attacks)
   useEffect(function getCurrentUser() {
+    const getCookie = (name) => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
 
-    async function getUser(token) {
-      console.log("TOKEN" , token)
-      if (token) {
-        PinterestApi.token = token;
+    async function getUser(id) {
+      if (id) {
         try {
-          let user = jwt_decode(token);
-          console.log(user)
-          const userData = await PinterestApi.getUserInfo(user.id);
+          const userData = await PinterestApi.getUserInfo(id);
+          console.log("user data on mount:", userData)
           setCurrentUser(userData);
           setIsLoading(false);
-
         } catch (err) {
-          console.error("ERROR: ", err);
+          console.error("ERROR in getUser: ", err);
         }
       }else{
+        console.log("in else in getUser")
         setCurrentUser(null);
         setIsLoading(false);
       }
     }
-    getUser(token);
-  }, [token]);
+
+    const cookieID = getCookie('cookie-id')
+    getUser(cookieID);
+  }, [isLoggedIn]);
 
   if(isLoading) return (<Loading />);
 
   /** Handles login. */
   async function login({ username, password }) {
     try {
-      let tokenData = await PinterestApi.login(username, password);
-      setToken(tokenData);
-      localStorage.setItem(GLOBAL_TOKEN, tokenData);
+      let loginData = await PinterestApi.login(username, password);
+
+      if(loginData.message == "Cookie Set Successfully"){
+        setIsLoggedIn(true)
+      }else{
+        console.error("ERROR in login");
+      }
+
     } catch (err) {
       console.error("ERROR in login: ", err);
     }
@@ -88,7 +103,8 @@ function App() {
   /** Handles site-wide logout */
   function logout() {
     setCurrentUser(null);
-    setToken(null);
+    setIsLoggedIn(false)
+    // setToken(null);
     PinterestApi.token = null;
     localStorage.removeItem(GLOBAL_TOKEN);
   }
@@ -97,22 +113,18 @@ function App() {
   async function updateToken(tokenData){
     setToken(tokenData)
     localStorage.setItem(GLOBAL_TOKEN, tokenData)
-
   }
 
   return (
     <userContext.Provider value={{ currentUser, setCurrentUser }}>
-      <div className="App" style={{backgroundColor:`bisque`}}>
         <BrowserRouter>
-
-          <Navigation logout={logout} />
-
-          <div className="container">
-            <RoutesList login={login} signup={signup} />
+          <div className="App" style={{backgroundColor:`bisque`}}>
+            <Navigation logout={logout} />
+            <div className="container">
+              <RoutesList login={login} signup={signup} />
+            </div>
           </div>
         </BrowserRouter>
-      </div>
-
     </userContext.Provider>
   );
 }

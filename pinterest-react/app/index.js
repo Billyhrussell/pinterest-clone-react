@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
-import userContext from "../components/userContext";
+// import userContext from "./userContext";
+import userContext from "./userContext";
 import "../css/Homepage.css"
 
 /** Displays main homepage for Pinterest

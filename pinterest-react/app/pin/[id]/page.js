@@ -1,9 +1,9 @@
 // Show a singular pin's details
 "use client"
 import PinterestApi from "@/app/api/route";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Loading from "../../../components/Loading"
-
+import userContext from "@/app/userContext";
   // NOTE: do we need to make an API call here?
   // We already have all the info needed.
 // TODO: this is where we will call to backend and find data by ID
@@ -12,6 +12,9 @@ import Loading from "../../../components/Loading"
 
 
 function PinDetails( { params } ){
+
+  const {currentUser} = useContext(userContext)
+  
   let { id } = params;
   const [pinInfo, setPin] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -19,6 +22,7 @@ function PinDetails( { params } ){
   useEffect(function getPinOnMount() {
     async function getPin(id) {
         try {
+
           const pinData = await PinterestApi.getAPin(id);
           setPin(pinData);
           console.log("PINDATAAA ", pinData)
@@ -36,6 +40,9 @@ function PinDetails( { params } ){
   return (
     <div className="PinDetails">
       <h3>{pinInfo.pin.title}</h3>
+      <h3>{currentUser.username}</h3>
+
+
       {/* <img src={pinInfo.pin.image}></img> */}
       <p>{pinInfo.pin.description}</p>
     </div>

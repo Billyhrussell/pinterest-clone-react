@@ -1,4 +1,4 @@
-import "./Navigation.css";
+import "../components/Navigation.css";
 import React, { useState, useContext } from 'react';
 import {
   Collapse,
@@ -10,7 +10,7 @@ import {
   NavLink,
 } from 'reactstrap';
 import { Link, NavLink as RRNavLink, Router } from 'react-router-dom';
-import Homepage from "../app/index";
+import Homepage from "./index";
 import userContext from './userContext';
 
 /** Displays Navigation bar with links to homepage, company list, and job list
@@ -56,7 +56,7 @@ function Navigation({ logout }) {
         <NavItem>
           <button
             className="nav-link"
-            onClick={logout}>Log out, {currentUser.firstName}
+            onClick={logout}>Log out, {currentUser.first_name}
           </button>
         </NavItem>
 

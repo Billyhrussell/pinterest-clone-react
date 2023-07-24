@@ -1,22 +1,20 @@
 "use client"
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import userContext from '../components/userContext';
+import userContext from './userContext';
 import React, { useContext } from "react";
 
 import { useRouter } from 'next/navigation';
 
 
 import Homepage from "./index";
-// import CompanyList from "./CompanyList";
-// import CompanyDetails from "./CompanyDetails";
-// import JobList from "./JobList";
-// import ProfileForm from './ProfileForm';
+
 import Profile from './[username]/page'
-// import Profile from './profile/page'
+
 import SignUp from './signup/page';
 import Login from './login/page';
 import Collection from '../components/userStuff/Collection'
-import Home from './page'
+import PinDetails from './pin/[id]/page';
+
 /** Function  creates paths to different pages
  *
  * Props:
@@ -29,30 +27,32 @@ import Home from './page'
  *
 */
 
-function RouteList({ login, signup }) {
-  // const { currentUser } = useContext(userContext);
-  let currentUser = false;
+function RoutesList({ login, signup }) {
   const navigate = useNavigate();
   const router = useRouter();
-
-
+  const { currentUser } = useContext(userContext);
 
   return (
 
     <Routes>
-      <Route path="" element={<Homepage/>}/>
-
-      <Route path=":username" element={<Profile/>}/>
-
-      <Route path=":username/:title/:id" element={<Collection/>}/>
-
 
       {currentUser &&
-      <>
+        <>
+            <Route path="/" element={<Homepage/>}/>
 
-      </>
+            <Route path="/:username" element={<Profile/>}/>
 
+            <Route path=":username/:title/:id" element={<Collection/>}/>
+
+            <Route path="pin/:id" element={<PinDetails/>}/>
+
+        </>
       }
+
+      <Route
+        path="/"
+        element={<Homepage />}
+      />
 
       {!currentUser &&
         <>
@@ -67,14 +67,14 @@ function RouteList({ login, signup }) {
         </>
       }
 
-        {/* <Route path="*" element={<Navigate to="/" />} /> */}
+        <Route path="*" element={<Navigate to="/" />} />
 
       </Routes>
 
   );
 }
 
-export default RouteList;
+export default RoutesList;
 
 
 

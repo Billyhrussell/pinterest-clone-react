@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 
 // import "./LoginForm.css";
 // import userContext from "../../components/userContext";
-import userContext from "../../components/userContext"
+import userContext from "../userContext"
 console.log("USERCONTEXT", userContext)
 
 /** Form for logging in.

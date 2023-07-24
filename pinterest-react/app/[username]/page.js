@@ -2,9 +2,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import CollectionList from "../../components/userStuff/CollectionList"
 import PinterestApi from "../api/route";
-import userContext from '../../components/userContext'
+import userContext from "@/app/userContext";
 import Loading from "../../components/Loading";
 import { usePathname } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 // profile -> CollectionList -> CollectionCard -> [username][title][id] ->  pinList -> pinCard -> pin[id]
 
@@ -16,28 +17,27 @@ const { Button } = require("reactstrap");
 
 function Profile(){
 
-  const [saved, setSaved] = useState(true)
+  // why cant we get currentUser when input into URL, but can get when click on navbar?
   const { currentUser } = useContext(userContext);
+
+  const [saved, setSaved] = useState(true)
   const [profileData, setProfileData] = useState(currentUser)
   const [collectionData, setCollectionData] = useState(null)
   const [pinData, setPinData] = useState(null)
 
-
-  console.log("PToken", PinterestApi.token)
-
   // FIXME: THIS SOMETIMES WORKS?
-  const path = usePathname()
+  // const path = usePathname()
   // const username = path.slice(1)
   const username = "fretcow"
 
+  // const router = useRouter();
+  // const { username } = router.query;
+
   useEffect(function getProfileOnMount(){
-    console.log("inuseeffect")
 
     async function getUserProfile(username){
-
         try{
           const pData = await PinterestApi.getUserProfile(username)
-          console.log("PROFILE DATAA ", pData)
           setProfileData(pData)
         } catch(err){
           console.error("Error fetching user info", err)
@@ -48,7 +48,7 @@ function Profile(){
       try{
         const c = await PinterestApi.getUserCollections(username)
         setCollectionData(c)
-        console.log("COOLETIONSS" , c)
+        console.log("COLLECTIONS" , c)
       }catch(err){
         console.error("Error getting collections:", err)
       }
@@ -69,9 +69,10 @@ function Profile(){
 
   }, []);
 
+  if (!currentUser || !profileData || !collectionData) {
+    return <Loading />;
+  }
 
-  if (!profileData) return <Loading/>
-  if (!collectionData) return <Loading/>
 
   return(
   <section id="profile">
