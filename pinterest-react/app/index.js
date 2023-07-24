@@ -1,6 +1,8 @@
+"use client"
+
 import React, { useContext, useEffect } from "react";
 // import userContext from "./userContext";
-import userContext from "./userContext";
+import { useGlobalContext }from "./Context/store";
 import "../css/Homepage.css"
 
 /** Displays main homepage for Pinterest
@@ -13,7 +15,7 @@ import "../css/Homepage.css"
  */
 
 function Homepage() {
-  const { currentUser } = useContext(userContext);
+  const { currentUser } = useGlobalContext();
 
   return (
     <div className="homepage">

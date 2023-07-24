@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import CollectionList from "../../components/userStuff/CollectionList"
 import PinterestApi from "../api/route";
-import userContext from "@/app/userContext";
+import {useGlobalContext} from "@/app/Context/store";
 import Loading from "../../components/Loading";
 import { usePathname } from 'next/navigation'
 import { useRouter } from "next/navigation";
@@ -18,8 +18,8 @@ const { Button } = require("reactstrap");
 function Profile(){
 
   // why cant we get currentUser when input into URL, but can get when click on navbar?
-  const { currentUser } = useContext(userContext);
-
+  const { currentUser } = useGlobalContext();
+  console.log("CURRENT USER IN PROFILEPAGE:", currentUser)
   const [saved, setSaved] = useState(true)
   const [profileData, setProfileData] = useState(currentUser)
   const [collectionData, setCollectionData] = useState(null)
@@ -78,8 +78,9 @@ function Profile(){
   <section id="profile">
     <div>
       <h3>PROFILE PAGE OF {profileData.first_name}</h3>
+      <p>{currentUser.username}</p>
 
-      { profileData.username == currentUser.username ?
+      { profileData.username === currentUser.username ?
         <button className="btn btn-primary"> Edit Profile </button>
          :
         <button className="btn btn-primary"> Follow </button>

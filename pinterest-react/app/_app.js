@@ -3,12 +3,13 @@
 import React, { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import { BrowserRouter } from "react-router-dom";
-
+// import { useEffect } from 'react'
+import { useGlobalContext } from './Context/store'
 import { useRouter } from 'next/navigation';
 
 import PinterestApi from "./api/route"
 
-import userContext from "@/app/userContext";
+// import userContext from "@/app/Context/userContext";
 
 import Navigation from "./Navigation";
 
@@ -32,13 +33,11 @@ import "../css/App.css"
 
 // TODO: commented b/c have not implemented user auth
 
-const GLOBAL_TOKEN = "token";
+
 
 function App() {
-
-  // const [token, setToken] = useState(getCookie("id") || null);
+  const { currentUser, setCurrentUser } = useGlobalContext()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // NOTE: used http-only request instead, since we were having a problem with
@@ -69,7 +68,7 @@ function App() {
 
     const cookieID = getCookie('cookie-id')
     getUser(cookieID);
-  }, [isLoggedIn]);
+  }, []);
 
   if(isLoading) return (<Loading />);
 
@@ -105,8 +104,8 @@ function App() {
     setCurrentUser(null);
     setIsLoggedIn(false)
     // setToken(null);
-    PinterestApi.token = null;
-    localStorage.removeItem(GLOBAL_TOKEN);
+    // PinterestApi.token = null;
+    // localStorage.removeItem(GLOBAL_TOKEN);
   }
 
   /** Handles updating token outside of app.js */
@@ -116,7 +115,7 @@ function App() {
   }
 
   return (
-    <userContext.Provider value={{ currentUser, setCurrentUser }}>
+
         <BrowserRouter>
           <div className="App" style={{backgroundColor:`bisque`}}>
             <Navigation logout={logout} />
@@ -125,7 +124,7 @@ function App() {
             </div>
           </div>
         </BrowserRouter>
-    </userContext.Provider>
+
   );
 }
 

@@ -1,6 +1,6 @@
 "use client"
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import userContext from './userContext';
+import { useGlobalContext } from './Context/store';
 import React, { useContext } from "react";
 
 import { useRouter } from 'next/navigation';
@@ -30,7 +30,7 @@ import PinDetails from './pin/[id]/page';
 function RoutesList({ login, signup }) {
   const navigate = useNavigate();
   const router = useRouter();
-  const { currentUser } = useContext(userContext);
+  const { currentUser } = useGlobalContext();
 
   return (
 

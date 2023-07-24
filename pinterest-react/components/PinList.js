@@ -1,4 +1,6 @@
 // shows a list of pins
+"use client"
+
 import PinCard from "./PinCard";
 import "@/css/PinList.css"
 

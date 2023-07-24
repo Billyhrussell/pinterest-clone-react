@@ -1,3 +1,5 @@
+// "use client"
+
 import "../components/Navigation.css";
 import React, { useState, useContext } from 'react';
 import {
@@ -11,7 +13,7 @@ import {
 } from 'reactstrap';
 import { Link, NavLink as RRNavLink, Router } from 'react-router-dom';
 import Homepage from "./index";
-import userContext from './userContext';
+import { useGlobalContext } from './Context/store';
 
 /** Displays Navigation bar with links to homepage, company list, and job list
  *
@@ -26,7 +28,7 @@ import userContext from './userContext';
 */
 
 function Navigation({ logout }) {
-  const { currentUser } = useContext(userContext);
+  const { currentUser } =  useGlobalContext();
   console.log("CURRENT USER IN NAVIGATION: ", currentUser)
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);

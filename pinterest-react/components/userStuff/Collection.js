@@ -1,5 +1,6 @@
 // page for a single collection
 // collection -> pinList -> pinCard -> pinDetails
+// "use client"
 
 function Collection(c){
 

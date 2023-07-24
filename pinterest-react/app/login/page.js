@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation"
 
 // import "./LoginForm.css";
 // import userContext from "../../components/userContext";
-import userContext from "../userContext"
-console.log("USERCONTEXT", userContext)
+import {useGlobalContext}from "../Context/store"
+
 
 /** Form for logging in.
  *
@@ -24,7 +24,7 @@ function LoginForm({ login }) {
 
 
   console.log(login, "lOGIN")
-  const { currentUser } = useContext(userContext);
+  const { currentUser } = useGlobalContext();
   // let currentUser = false;
   const initial = { username: "", password: "" };
   const navigate = useNavigate();

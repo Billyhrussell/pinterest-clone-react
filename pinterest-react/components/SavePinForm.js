@@ -1,4 +1,6 @@
 // saves a pin to a collection
+"use client"
+
 
 // ?: global variables, forgot how to use. Collections will be used almost
 // everywhere in website, save button

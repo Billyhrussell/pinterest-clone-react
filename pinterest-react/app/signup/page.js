@@ -4,7 +4,7 @@ import React, { useState, useContext } from "react";
 import { useRouter } from "next/navigation"
 
 // import "./SignUpForm.css"
-import userContext from "../userContext";
+import userContext from "../Context/store";
 
 
 /** Form for adding.

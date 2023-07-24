@@ -3,7 +3,8 @@
 import PinterestApi from "@/app/api/route";
 import React, { useState, useEffect, useContext } from "react";
 import Loading from "../../../components/Loading"
-import userContext from "@/app/userContext";
+import userContext from "@/app/Context/store";
+import { useGlobalContext } from "@/app/Context/store";
   // NOTE: do we need to make an API call here?
   // We already have all the info needed.
 // TODO: this is where we will call to backend and find data by ID
@@ -13,8 +14,8 @@ import userContext from "@/app/userContext";
 
 function PinDetails( { params } ){
 
-  const {currentUser} = useContext(userContext)
-  
+  const {currentUser} = useGlobalContext();
+
   let { id } = params;
   const [pinInfo, setPin] = useState(null);
   const [isLoading, setIsLoading] = useState(true);

@@ -1,4 +1,6 @@
 // import JoblyApi from "./_api";
+"use client"
+
 import userContext from "./userContext";
 import { useState, useContext } from 'react';
 // import './ProfileForm.css';

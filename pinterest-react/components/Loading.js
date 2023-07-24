@@ -1,5 +1,6 @@
 // import "./Loading.css";
 
+
 /** Loading renders loading screen
  *
  * props: none

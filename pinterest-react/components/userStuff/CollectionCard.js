@@ -1,4 +1,6 @@
 // a singular collection card
+
+
 import Link from "next/link";
 import { useRouter } from "next/router"
 // TODO: ? get first picture inside of collection

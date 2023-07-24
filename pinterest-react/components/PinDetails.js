@@ -1,4 +1,5 @@
 // Show a singular pin's details
+"use client"
 
 function PinDetails({pin}){
 
